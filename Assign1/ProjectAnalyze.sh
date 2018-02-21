@@ -21,7 +21,7 @@ grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each fil
 
 #Part 4
 #Check all haskell files for syntax errors and puts the result into error.log
-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
+ghc -fno-code *.hs $1 &>> error.log  # ghc -fno-code.hs hint given on the course website
 
 #Part 5
 #Make your own feature
