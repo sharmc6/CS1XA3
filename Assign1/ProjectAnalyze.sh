@@ -17,7 +17,7 @@ git diff $1 >> changes.log
 
 #Part 3
 # Puts each line from every file of your project with the tag #TODO into a file todo.log
-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
+grep -r --exclude=todo.log "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
 
 #Part 4
 #Check all haskell files for syntax errors and puts the result into error.log
