@@ -30,5 +30,5 @@ The IFS command was refernced from (http://mindspill.net/computing/linux-notes/u
 The parameters used in the feature were refernced from (http://mywiki.wooledge.org/BashSheet#Parameter_Operations)
 
 ADDITIONAL 
-The concept for viewing the files created was refernced from (https://github.com/elwazana)
+The concept for viewing the files created was refernced from (https://github.com/elwazana).
 
