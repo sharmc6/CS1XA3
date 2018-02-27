@@ -43,14 +43,6 @@ then
 else
     echo "The file has been created."
 fi 
-# ghc -fno-code.hs hint given on the course website
-
-grep -r --exclude=todo.log "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
-
-#Part 4
-#Check all haskell files for syntax errors and puts the result into error.log
-ghc -fno-code *.hs $1 &>> error.log  # ghc -fno-code.hs hint given on the course website
-
 
 #Part 5
 #Make your own feature
