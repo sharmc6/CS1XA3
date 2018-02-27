@@ -25,10 +25,10 @@ For the 4th part I used the hint that the instructor provided us in the assignme
 
 PART 5
 The feature that I included in the file lets the user know how many executable and non executable commands are in the path.
-for this feature I referenced the textbook Wicked Cool Shell Scripts (https://nostarch.com/wcss2) Chapter 2- Improving User's commands.
-The IFS command was refernced from (http://mindspill.net/computing/linux-notes/using-the-bash-ifs-variable-to-make-for-loops-split-with-non-whitespace-characters/)
+For this feature I referenced the textbook Wicked Cool Shell Scripts (http://shop.oreilly.com/product/9781593270124.do).
+The IFS command was referenced from (http://mindspill.net/computing/linux-notes/using-the-bash-ifs-variable-to-make-for-loops-split-with-non-whitespace-characters/)
 The parameters used in the feature were refernced from (http://mywiki.wooledge.org/BashSheet#Parameter_Operations)
 
 ADDITIONAL 
-The concept for viewing the files created was refernced from (https://github.com/elwazana).
+The concept for viewing the files created was referenced from (https://github.com/elwazana).
 
