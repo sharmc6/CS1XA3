@@ -1,0 +1,3803 @@
+:diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..854c05b 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -25,4 +25,4 @@ ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course
+ 
+ #Part 5
+ #Make your own feature
+-
++#
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..c40d556 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -17,12 +17,12 @@ git diff $1 >> changes.log
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r --exclude=todo.log "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++ghc -fno-code *.hs $1 &>> error.log  # ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
+-
++#
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..4b3f9c7 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -17,12 +17,12 @@ git diff $1 >> changes.log
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r --exclude=todo.log "#TODO" ~/CS1XA3/Assign1 $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++ghc -fno-code *.hs $1 &>> error.log  # ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
+-
++#
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..c6b10c2 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -3,7 +3,7 @@
+ # Check if Repo is up to date
+ $(git fetch origin)
+ localRepo=(git rev-parse master)  #gives an output
+-remoteRepo=(git rev-parse remote/master)  #gives an output
++remoteRepo=(git rev-parse origin/master)  #gives an output
+ if [ $localRepo == $remoteRepo ]  #if the outputs are same then the repos are up to date with each other
+ then
+     echo "Local Repo is up to date with Remote Repo"
+@@ -17,12 +17,12 @@ git diff $1 >> changes.log
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r --exclude=todo.log "#TODO" ~/CS1XA3/Assign1 $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++ghc -fno-code *.hs $1 &>> error.log  # ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
+-
++#
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..ec3f569 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,40 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+ git diff $1 >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N" ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r --exclude=todo.log "#TODO" ~/CS1XA3/Assign1 $1 >> todo.log
++read -p "Would you like to view the file? Y/N" ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++ghc -fno-code *.hs $1 &>> error.log
++read -p "Would you like to view the file? Y/N" ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
+-
++#
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..bb65c24 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,40 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r --exclude="todo.log" --exclude="ProjectAnalyze.sh" "#TODO" >> todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
+-
++#
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..bc986be 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,40 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" >> todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
+-
++#
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..bc986be 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,40 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" >> todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
+-
++#
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..bc986be 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,40 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" >> todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
+-
++#
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..a8a47dd 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,40 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" >> todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
+-
++#
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..5d7fcd7 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,40 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
+-
++#
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..8d49fef 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,46 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
+-
++read -p "Would you like to know largest videos in your directory? Y/N " ans4
++if [ $ans4 == "Y" ]
++then
++    find /path/to/search/ -type f -iname "*.mp4" -printf '%s %p\n' | sort -nr | head -10
++else
++    echo "Okay view the list sometime else."
++fi
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..3539a34 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,46 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
+-
++read -p "Would you like to know largest videos in your directory? Y/N " ans4
++if [ $ans4 == "Y" ]
++then
++    find pwd -type f -iname "*.mp4" -printf '%s %p\n' | sort -nr | head -10
++else
++    echo "Okay view the list sometime else."
++fi
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..7d06f2c 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,46 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
+-
++read -p "Would you like to know largest videos in your directory? Y/N " ans4
++if [ $ans4 == "Y" ]
++then
++    find readLink -type f -iname "*.mp4" -printf '%s %p\n' | sort -nr | head -10
++else
++    echo "Okay view the list sometime else."
++fi
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..ca6584b 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,46 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
+-
++read -p "Would you like to know largest videos in your directory? Y/N " ans4
++if [ $ans4 == "Y" ]
++then
++    find echo $(cd $(dirname "$1") && pwd -P)/$(basename "$1") -type f -iname "*.mp4" -printf '%s %p\n' | sort -nr | head -10
++else
++    echo "Okay view the list sometime else."
++fi
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..b54cb44 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,46 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
+-
++read -p "Would you like to know largest videos in your directory? Y/N " ans4
++if [ $ans4 == "Y" ]
++then
++     du -hsx * | sort -rh | head -10
++else
++    echo "Okay view the list sometime else."
++fi
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..148422b 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,46 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
+-
++read -p "Would you like to know largest videos in your directory? Y/N " ans4
++if [ $ans4 == "Y" ]
++then
++     locate -i "*.jpg" -type f -iname "*.jpg" -printf '%s %p\n' | sort -nr | head -10
++else
++    echo "Okay view the list sometime else."
++fi
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..7a19d84 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,46 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
+-
++read -p "Would you like to know largest videos in your directory? Y/N " ans4
++if [ $ans4 == "Y" ]
++then
++     du -a /var | sort -n -r | head -n 10
++else
++    echo "Okay view the list sometime else."
++fi
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..b1834ff 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,47 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
+-
++read -p "Would you like to know largest videos in your directory? Y/N " ans4
++if [ $ans4 == "Y" ]
++then
++     $ cd home
++     $ for i in G M K; do du -ah | grep [0-9]$i | sort -nr -k 1; done | head -n 10
++else
++    echo "Okay view the list sometime else."
++fi
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..66d2451 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,47 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
+-
++read -p "Would you like to know largest videos in your directory? Y/N " ans4
++if [ $ans4 == "Y" ]
++then
++     $ cd home
++     $ du -hsx * | sort -rh | head -10
++else
++    echo "Okay view the list sometime else."
++fi
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..169b7d1 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,46 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
+-
++read -p "Would you like to know largest videos in your directory? Y/N " ans4
++if [ $ans4 == "Y" ]
++then
++     find . -type f -printf "%s\t%p\n" | sort -n | tail -1
++else
++    echo "Okay view the list sometime else."
++fi
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..349919c 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,50 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
++read -p "Would you like to know largest videos in your directory? Y/N " ans4
++z="$(echo $HOME)"
++if [ $ans4 == "Y" ]
++then
++    find $z -type f -iname "*.mp4" -printf '%s %p\n' | sort -nr | head -10
+ 
++
++    
++else
++    echo "Okay view the list sometime else."
++fi
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..0f66a52 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,47 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
+-
++read -p "Would you like to know largest videos in your directory? Y/N " ans4
++z="$(echo ~)"
++if [ $ans4 == "Y" ]
++then
++    find $z -type f -iname "*.mp4" -printf '%s %p\n' | sort -nr | head -10   
++else
++    echo "Okay view the list sometime else."
++fi
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..f760b3a 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,47 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
+-
++read -p "Would you like to know largest videos in your directory? Y/N " ans4
++z="$(echo $PATH)"
++if [ $ans4 == "Y" ]
++then
++    find $z -type f -iname "*.mp4" -printf '%s %p\n' | sort -nr | head -10   
++else
++    echo "Okay view the list sometime else."
++fi
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..d2bc547 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,47 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    cat changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    cat todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    cat error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
+-
++#read -p "Would you like to know largest videos in your directory? Y/N " ans4
++#z="$(echo $PATH)"
++#if [ $ans4 == "Y" ]
++#then
++    #find $z -type f -iname "*.mp4" -printf '%s %p\n' | sort -nr | head -10   
++#else
++   # echo "Okay view the list sometime else."
++#fi
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..5352d3c 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,47 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
+-
++read -p "Would you like to know largest videos in your directory? Y/N " ans4
++z=$(echo ~)
++if [ $ans4 == "Y" ]
++then
++    find $z -type f -iname "*.mp4" -printf '%s %p\n' | sort -nr | head -10   
++else
++   echo "Okay view the list sometime else."
++fi
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..3c2988a 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,47 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
+-
++read -p "Would you like to know largest videos in your directory? Y/N " ans4
++z=$(echo ~/)
++if [ $ans4 == "Y" ]
++then
++    find $z -type f -iname "*.mp4" -printf '%s %p\n' | sort -nr | head -10   
++else
++   echo "Okay view the list sometime else."
++fi
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..5c435d8 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,48 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
+-
++read -p "Would you like to know largest videos in your directory? Y/N " ans4
++z=(cd ~)
++y=($z pwd)
++if [ $ans4 == "Y" ]
++then
++    find $y -type f -iname "*.mp4" -printf '%s %p\n' | sort -nr | head -10   
++else
++   echo "Okay view the list sometime else."
++fi
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..d1361de 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,48 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
+-
++read -p "Would you like to know largest videos in your directory? Y/N " ans4
++z=(echo ~)
++y=(echo $z)
++if [ $ans4 == "Y" ]
++then
++    find $y -type f -printf '%s %p\n' | sort -nr | head -10   
++else
++   echo "Okay view the list sometime else."
++fi
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..6bbe594 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,58 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
++read -p "Let's find how many exeutable commands are present in the current path."
++IFS=":"
++count=0 ; nonex=0
++for directory in $PATH ;  do
++  if [ -d "$directory" ] ; then
++    for command in "$directory"/* ; do
++
++      if [ -x "$command" ] ; then
++        count="$(( $count + 1 ))"
++      else
++        nonex="$(( $nonex + 1 ))"
++      fi
++    done
++  fi
++done
++
++echo "$count commands, and $nonex entries that weren't executable"
+ 
++exit 0
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..017b1ec 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,78 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
++read -p "Let's find how many exeutable commands are present in the current path."
++IFS=":"
++count=0 ; nonex=0
++for directory in $PATH ;  do
++  if [ -d "$directory" ] ; then
++    for command in "$directory"/* ; do
++
++      if [ -x "$command" ] ; then
++        count="$(( $count + 1 ))"
++      else
++        nonex="$(( $nonex + 1 ))"
++      fi
++    done
++  fi
++done
++
++echo "$count commands, and $nonex entries that weren't executable"
++
++exit 0
++
++# showCGIenv--Displays the CGI runtime environment, as given to any 
++#   CGI script on this system.
++
++echo "Content-type: text/html"
++echo ""
++
++# Now the real information...
++
++echo "<html><body bgcolor=\"white\"><h2>CGI Runtime Environment</h2>"
++echo "<pre>"
++env || printenv
++echo "</pre>"
++echo "<h3>Input stream is:</h3>"
++echo "<pre>"
++cat -
++echo "(end of input stream)</pre></body></html>"
++
++exit 0
+ 
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..2d88517 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,76 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
++read -p "Let's find how many exeutable commands are present in the current path."
++IFS=":"
++count=0 ; nonex=0
++for directory in $PATH ;  do
++  if [ -d "$directory" ] ; then
++    for command in "$directory"/* ; do
++
++      if [ -x "$command" ] ; then
++        count="$(( $count + 1 ))"
++      else
++        nonex="$(( $nonex + 1 ))"
++      fi
++    done
++  fi
++done
++
++echo "$count commands, and $nonex entries that weren't executable"
++
++# showCGIenv--Displays the CGI runtime environment, as given to any 
++#   CGI script on this system.
++
++echo "Content-type: text/html"
++echo ""
++
++# Now the real information...
++
++echo "<html><body bgcolor=\"white\"><h2>CGI Runtime Environment</h2>"
++echo "<pre>"
++env || printenv
++echo "</pre>"
++echo "<h3>Input stream is:</h3>"
++echo "<pre>"
++cat -
++echo "(end of input stream)</pre></body></html>"
++
++exit 0
+ 
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..326832e 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,66 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
++read -p "Let's find how many exeutable commands are present in the current path."
++IFS=":"
++count=0 ; nonex=0
++for directory in $PATH ;  do
++  if [ -d "$directory" ] ; then
++    for command in "$directory"/* ; do
++
++      if [ -x "$command" ] ; then
++        count="$(( $count + 1 ))"
++      else
++        nonex="$(( $nonex + 1 ))"
++      fi
++    done
++  fi
++done
++
++echo "$count commands, and $nonex entries that weren't executable"
++
++read -p "now, would you like to know the largest file in your directory? (Y/N) " ans4
++if [ $ans4 == "Y" ]
++then
++   find . -type f | xargs ls -1S | head -n 1
++
++exit 0
++
++
+ 
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..a29a2c5 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,66 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
++read -p "Let's find how many exeutable commands are present in the current path."
++IFS=":"
++count=0 ; nonex=0
++for directory in $PATH ;  do
++  if [ -d "$directory" ] ; then
++    for command in "$directory"/* ; do
++
++      if [ -x "$command" ] ; then
++        count="$(( $count + 1 ))"
++      else
++        nonex="$(( $nonex + 1 ))"
++      fi
++    done
++  fi
++done
++
++echo "$count commands, and $nonex entries that weren't executable"
++
++read -p "now, would you like to know the largest file in your directory? (Y/N) " ans4
++if [ $ans4 == "Y" ]
++then
++   find . -type f | xargs ls -1S | head -n 1
++fi
++exit 0
++
++
+ 
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..84bb935 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,72 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
++read -p "Let's find how many exeutable commands are present in the current path."
++IFS=":"
++count=0 ; nonex=0
++for directory in $PATH ;  do
++  if [ -d "$directory" ] ; then
++    for command in "$directory"/* ; do
++
++      if [ -x "$command" ] ; then
++        count="$(( $count + 1 ))"
++      else
++        nonex="$(( $nonex + 1 ))"
++      fi
++    done
++  fi
++done
++
++echo "$count commands, and $nonex entries that weren't executable"
++
++
++if [ -z "$1" ]; then
++    dir="."
++else 
++    dir="$1"
++fi
++
++for i in $(find . -type d | sed 's/ /12345/g' | sed 's/.*/"&"/g')
++do 
++    echo $i | sed 's/12345/ /g' | xargs ls 
++done
++exit 0
++
++
+ 
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..d76af25 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,95 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
++read -p "Let's find how many exeutable commands are present in the current path."
++IFS=":"
++count=0 ; nonex=0
++for directory in $PATH ;  do
++  if [ -d "$directory" ] ; then
++    for command in "$directory"/* ; do
++
++      if [ -x "$command" ] ; then
++        count="$(( $count + 1 ))"
++      else
++        nonex="$(( $nonex + 1 ))"
++      fi
++    done
++  fi
++done
++
++echo "$count commands, and $nonex entries that weren't executable"
++
++
++if [ -z "$1" ]; then
++    dir="."
++else 
++    dir="$1"
++fi
++
++for i in $(find . -type d | sed 's/ /12345/g' | sed 's/.*/"&"/g')
++do 
++    echo $i | sed 's/12345/ /g' | xargs ls 
++done
++exit 0
++width=72
++for input
++do
++  echo $input
++  lines="$(wc -l < $input | sed 's/ //g')"
++  chars="$(wc -c < $input | sed 's/ //g')"
++  owner="$(ls -ld $input | awk '{print $3}')"
++  echo "-----------------------------------------------------------------"
++  echo "File $input ($lines lines, $chars characters, owned by $owner):"
++  echo "-----------------------------------------------------------------"
++  while read line 
++  do
++    if [ ${#line} -gt $width ] ; then
++      echo "$line" | fmt | sed -e '1s/^/  /' -e '2,$s/^/+ /'
++    else
++      echo "  $line"
++    fi
++  done < $input
++
++  echo "-----------------------------------------------------------------"
++
++done | ${PAGER:more}
++
++exit 0
++
+ 
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..601ff2b 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,83 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
++read -p "Let's find how many exeutable commands are present in the current path."
++IFS=":"
++count=0 ; nonex=0
++for directory in $PATH ;  do
++  if [ -d "$directory" ] ; then
++    for command in "$directory"/* ; do
++
++      if [ -x "$command" ] ; then
++        count="$(( $count + 1 ))"
++      else
++        nonex="$(( $nonex + 1 ))"
++      fi
++    done
++  fi
++done
++
++echo "$count commands, and $nonex entries that weren't executable"
++
++width=72
++for input
++do
++  echo $input
++  lines="$(wc -l < $input | sed 's/ //g')"
++  chars="$(wc -c < $input | sed 's/ //g')"
++  owner="$(ls -ld $input | awk '{print $3}')"
++  echo "-----------------------------------------------------------------"
++  echo "File $input ($lines lines, $chars characters, owned by $owner):"
++  echo "-----------------------------------------------------------------"
++  while read line 
++  do
++    if [ ${#line} -gt $width ] ; then
++      echo "$line" | fmt | sed -e '1s/^/  /' -e '2,$s/^/+ /'
++    else
++      echo "  $line"
++    fi
++  done < $input
++
++  echo "-----------------------------------------------------------------"
++
++done | ${PAGER:more}
++
++exit 0
++
+ 
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..601ff2b 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,83 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
++read -p "Let's find how many exeutable commands are present in the current path."
++IFS=":"
++count=0 ; nonex=0
++for directory in $PATH ;  do
++  if [ -d "$directory" ] ; then
++    for command in "$directory"/* ; do
++
++      if [ -x "$command" ] ; then
++        count="$(( $count + 1 ))"
++      else
++        nonex="$(( $nonex + 1 ))"
++      fi
++    done
++  fi
++done
++
++echo "$count commands, and $nonex entries that weren't executable"
++
++width=72
++for input
++do
++  echo $input
++  lines="$(wc -l < $input | sed 's/ //g')"
++  chars="$(wc -c < $input | sed 's/ //g')"
++  owner="$(ls -ld $input | awk '{print $3}')"
++  echo "-----------------------------------------------------------------"
++  echo "File $input ($lines lines, $chars characters, owned by $owner):"
++  echo "-----------------------------------------------------------------"
++  while read line 
++  do
++    if [ ${#line} -gt $width ] ; then
++      echo "$line" | fmt | sed -e '1s/^/  /' -e '2,$s/^/+ /'
++    else
++      echo "  $line"
++    fi
++  done < $input
++
++  echo "-----------------------------------------------------------------"
++
++done | ${PAGER:more}
++
++exit 0
++
+ 
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..84679f3 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,87 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
++read -p "Let's find how many exeutable commands are present in the current path."
++IFS=":"
++count=0 ; nonex=0
++for directory in $PATH ;  do
++  if [ -d "$directory" ] ; then
++    for command in "$directory"/* ; do
++
++      if [ -x "$command" ] ; then
++        count="$(( $count + 1 ))"
++      else
++        nonex="$(( $nonex + 1 ))"
++      fi
++    done
++  fi
++done
++
++echo "$count commands, and $nonex entries that weren't executable"
++
++
++
++read -p "As we are dealing with github, wouldn't it be great if we could find the user's github information from the terminal?"
++read -p "This feature will allow you to find some github information about a user."
++if [ $# -ne 1 ]; then
++  echo "Usage: $0 <username>"
++  exit 1
++fi
+ 
++# The -s silences curl's normally verbose output.
++curl -s "https://api.github.com/users/$1" | \
++        awk -F'"' '
++            /\"name\":/ { 
++              print $4" is the name of the Github user."
++            }
++            /\"followers\":/{ 
++              split($3, a, " ") 
++              sub(/,/, "", a[2])
++              print "They have "a[2]" followers." 
++            }
++            /\"following\":/{
++              split($3, a, " ")
++              sub(/,/, "", a[2])
++              print "They are following "a[2]" other users."
++            }
++            /\"created_at\":/{
++              print "Their account was created on "$4"."
++            }
++            '
++exit 0
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..9274c1c 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,107 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
++read -p "Let's find how many exeutable commands are present in the current path."
++IFS=":"
++count=0 ; nonex=0
++for directory in $PATH ;  do
++  if [ -d "$directory" ] ; then
++    for command in "$directory"/* ; do
++
++      if [ -x "$command" ] ; then
++        count="$(( $count + 1 ))"
++      else
++        nonex="$(( $nonex + 1 ))"
++      fi
++    done
++  fi
++done
++
++echo "$count commands, and $nonex entries that weren't executable"
++
++          
++ # formatdir--Outputs a directory listing in a friendly and useful format.
++# Note that you need to ensure "scriptbc" (script #9) is in your current path
++#   because it's invoked within more than once.
++
++# Function to format sizes in Kb to Kb, Mb, or Gb for more readable output.
++readablesize()
++{
++
++  if [ $1 -ge 1048576 ] ; then
++    echo "$(scriptbc -p 2 $1 / 1048576)Gb"
++  elif [ $1 -ge 1024 ] ; then
++    echo  "$(scriptbc -p 2 $1 / 1024)Mb"
++  else 
++    echo "${1}Kb"
++  fi
++}
++
++#################
++## MAIN CODE 
++
++if [ $# -gt 1 ] ; then
++  echo "Usage: $0 [dirname]" >&2; exit 1
++elif [ $# -eq 1 ] ; then   # Specified a directory other than the current one?
++  cd "$@"                  # Then let’s change to that one.
++  if [ $? -ne 0 ] ; then   # Or quit if the directory doesn't exist
++    exit 1
++  fi
++fi
++
++for file in *
++do 
++  if [ -d "$file" ] ; then
++    size=$(ls "$file" | wc -l | sed 's/[^[:digit:]]//g')
++    if [ $size -eq 1 ] ; then
++      echo "$file ($size entry)|"
++    else
++      echo "$file ($size entries)|"
++    fi
++  else
++    size="$(ls -sk "$file" | awk '{print $1}')"
++    echo "$file ($(readablesize $size))|"
++  fi
++done | \
++  sed 's/ /^^^/g'  | \
++  xargs -n 2     | \
++  sed 's/\^\^\^/ /g' | \
++  awk -F\| '{ printf "%-39s %-39s\n", $1, $2 }'
+ 
++exit 0
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..bc48564 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,87 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
++read -p "Let's find how many exeutable commands are present in the current path."
++IFS=":"
++count=0 ; nonex=0
++for directory in $PATH ;  do
++  if [ -d "$directory" ] ; then
++    for command in "$directory"/* ; do
++
++      if [ -x "$command" ] ; then
++        count="$(( $count + 1 ))"
++      else
++        nonex="$(( $nonex + 1 ))"
++      fi
++    done
++  fi
++done
++
++echo "$count commands, and $nonex entries that weren't executable"
++
++          
++
++
++
++read -p "Now let's find out useful informations about the directory"
++# showfile--Shows the contents of a file, including additional useful info.
++width=72
++for input
++do
++  echo $input
++  lines="$(wc -l < $input | sed 's/ //g')"
++  chars="$(wc -c < $input | sed 's/ //g')"
++  owner="$(ls -ld $input | awk '{print $3}')"
++  echo "-----------------------------------------------------------------"
++  echo "File $input ($lines lines, $chars characters, owned by $owner):"
++  echo "-----------------------------------------------------------------"
++  while read line 
++  do
++    if [ ${#line} -gt $width ] ; then
++      echo "$line" | fmt | sed -e '1s/^/  /' -e '2,$s/^/+ /'
++    else
++      echo "  $line"
++    fi
++  done < $input
++
++  echo "-----------------------------------------------------------------"
++
++done | ${PAGER:more}
+ 
++exit 0
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..9c39009 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,86 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
++read -p "Let's find how many exeutable commands are present in the current path."
++IFS=":"
++count=0 ; nonex=0
++for directory in $PATH ;  do
++  if [ -d "$directory" ] ; then
++    for command in "$directory"/* ; do
++
++      if [ -x "$command" ] ; then
++        count="$(( $count + 1 ))"
++      else
++        nonex="$(( $nonex + 1 ))"
++      fi
++    done
++  fi
++done
++
++echo "$count commands, and $nonex entries that weren't executable"
++exit 0
++          
++
++
++read -p "Now let's find out useful informations about the directory"
++# showfile--Shows the contents of a file, including additional useful info.
++width=72
++for input
++do
++  echo $input
++  lines="$(wc -l < $input | sed 's/ //g')"
++  chars="$(wc -c < $input | sed 's/ //g')"
++  owner="$(ls -ld $input | awk '{print $3}')"
++  echo "-----------------------------------------------------------------"
++  echo "File $input ($lines lines, $chars characters, owned by $owner):"
++  echo "-----------------------------------------------------------------"
++  while read line 
++  do
++    if [ ${#line} -gt $width ] ; then
++      echo "$line" | fmt | sed -e '1s/^/  /' -e '2,$s/^/+ /'
++    else
++      echo "  $line"
++    fi
++  done < $input
++
++  echo "-----------------------------------------------------------------"
++
++done | ${PAGER:more}
+ 
++exit 0
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..7d5af9e 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,86 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
++#read -p "Let's find how many exeutable commands are present in the current path."
++#IFS=":"
++#count=0 ; nonex=0
++#for directory in $PATH ;  do
++ # if [ -d "$directory" ] ; then
++  #  for command in "$directory"/* ; do
++
++   #   if [ -x "$command" ] ; then
++    #    count="$(( $count + 1 ))"
++     # else
++      #  nonex="$(( $nonex + 1 ))"
++     # fi
++   # done
++ # fi
++#done
++
++#echo "$count commands, and $nonex entries that weren't executable"
++#exit 0
++          
++
++
++read -p "Now let's find out useful informations about the directory"
++# showfile--Shows the contents of a file, including additional useful info.
++width=72
++for input
++do
++  echo $input
++  lines="$(wc -l < $input | sed 's/ //g')"
++  chars="$(wc -c < $input | sed 's/ //g')"
++  owner="$(ls -ld $input | awk '{print $3}')"
++  echo "-----------------------------------------------------------------"
++  echo "File $input ($lines lines, $chars characters, owned by $owner):"
++  echo "-----------------------------------------------------------------"
++  while read line 
++  do
++    if [ ${#line} -gt $width ] ; then
++      echo "$line" | fmt | sed -e '1s/^/  /' -e '2,$s/^/+ /'
++    else
++      echo "  $line"
++    fi
++  done < $input
++
++  echo "-----------------------------------------------------------------"
++
++done | ${PAGER:more}
+ 
++exit 0
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..7d5af9e 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,86 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
++#read -p "Let's find how many exeutable commands are present in the current path."
++#IFS=":"
++#count=0 ; nonex=0
++#for directory in $PATH ;  do
++ # if [ -d "$directory" ] ; then
++  #  for command in "$directory"/* ; do
++
++   #   if [ -x "$command" ] ; then
++    #    count="$(( $count + 1 ))"
++     # else
++      #  nonex="$(( $nonex + 1 ))"
++     # fi
++   # done
++ # fi
++#done
++
++#echo "$count commands, and $nonex entries that weren't executable"
++#exit 0
++          
++
++
++read -p "Now let's find out useful informations about the directory"
++# showfile--Shows the contents of a file, including additional useful info.
++width=72
++for input
++do
++  echo $input
++  lines="$(wc -l < $input | sed 's/ //g')"
++  chars="$(wc -c < $input | sed 's/ //g')"
++  owner="$(ls -ld $input | awk '{print $3}')"
++  echo "-----------------------------------------------------------------"
++  echo "File $input ($lines lines, $chars characters, owned by $owner):"
++  echo "-----------------------------------------------------------------"
++  while read line 
++  do
++    if [ ${#line} -gt $width ] ; then
++      echo "$line" | fmt | sed -e '1s/^/  /' -e '2,$s/^/+ /'
++    else
++      echo "  $line"
++    fi
++  done < $input
++
++  echo "-----------------------------------------------------------------"
++
++done | ${PAGER:more}
+ 
++exit 0
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..2350f85 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,89 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
++#read -p "Let's find how many exeutable commands are present in the current path."
++#IFS=":"
++#count=0 ; nonex=0
++#for directory in $PATH ;  do
++ # if [ -d "$directory" ] ; then
++  #  for command in "$directory"/* ; do
++
++   #   if [ -x "$command" ] ; then
++    #    count="$(( $count + 1 ))"
++     # else
++      #  nonex="$(( $nonex + 1 ))"
++     # fi
++   # done
++ # fi
++#done
++
++#echo "$count commands, and $nonex entries that weren't executable"
++#exit 0
++          
++
++
++read -p "As we are working with github in this course wouldn't it be great if we could find a user's information from the terminal itself?"
++read -p "So let's get started"
++if [ $# -ne 1 ]; then
++  echo "Usage: $0 <username>"
++  exit 1
++fi
++
++# The -s silences curl's normally verbose output.
++curl -s "https://api.github.com/users/$1" | \
++        awk -F'"' '
++            /\"name\":/ { 
++              print $4" is the name of the Github user."
++            }
++            /\"followers\":/{ 
++              split($3, a, " ") 
++              sub(/,/, "", a[2])
++              print "They have "a[2]" followers." 
++            }
++            /\"following\":/{
++              split($3, a, " ")
++              sub(/,/, "", a[2])
++              print "They are following "a[2]" other users."
++            }
++            /\"created_at\":/{
++              print "Their account was created on "$4"."
++            }
++            '
++exit 0
+ 
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..2350f85 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,89 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
++#read -p "Let's find how many exeutable commands are present in the current path."
++#IFS=":"
++#count=0 ; nonex=0
++#for directory in $PATH ;  do
++ # if [ -d "$directory" ] ; then
++  #  for command in "$directory"/* ; do
++
++   #   if [ -x "$command" ] ; then
++    #    count="$(( $count + 1 ))"
++     # else
++      #  nonex="$(( $nonex + 1 ))"
++     # fi
++   # done
++ # fi
++#done
++
++#echo "$count commands, and $nonex entries that weren't executable"
++#exit 0
++          
++
++
++read -p "As we are working with github in this course wouldn't it be great if we could find a user's information from the terminal itself?"
++read -p "So let's get started"
++if [ $# -ne 1 ]; then
++  echo "Usage: $0 <username>"
++  exit 1
++fi
++
++# The -s silences curl's normally verbose output.
++curl -s "https://api.github.com/users/$1" | \
++        awk -F'"' '
++            /\"name\":/ { 
++              print $4" is the name of the Github user."
++            }
++            /\"followers\":/{ 
++              split($3, a, " ") 
++              sub(/,/, "", a[2])
++              print "They have "a[2]" followers." 
++            }
++            /\"following\":/{
++              split($3, a, " ")
++              sub(/,/, "", a[2])
++              print "They are following "a[2]" other users."
++            }
++            /\"created_at\":/{
++              print "Their account was created on "$4"."
++            }
++            '
++exit 0
+ 
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..2350f85 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,89 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
++#read -p "Let's find how many exeutable commands are present in the current path."
++#IFS=":"
++#count=0 ; nonex=0
++#for directory in $PATH ;  do
++ # if [ -d "$directory" ] ; then
++  #  for command in "$directory"/* ; do
++
++   #   if [ -x "$command" ] ; then
++    #    count="$(( $count + 1 ))"
++     # else
++      #  nonex="$(( $nonex + 1 ))"
++     # fi
++   # done
++ # fi
++#done
++
++#echo "$count commands, and $nonex entries that weren't executable"
++#exit 0
++          
++
++
++read -p "As we are working with github in this course wouldn't it be great if we could find a user's information from the terminal itself?"
++read -p "So let's get started"
++if [ $# -ne 1 ]; then
++  echo "Usage: $0 <username>"
++  exit 1
++fi
++
++# The -s silences curl's normally verbose output.
++curl -s "https://api.github.com/users/$1" | \
++        awk -F'"' '
++            /\"name\":/ { 
++              print $4" is the name of the Github user."
++            }
++            /\"followers\":/{ 
++              split($3, a, " ") 
++              sub(/,/, "", a[2])
++              print "They have "a[2]" followers." 
++            }
++            /\"following\":/{
++              split($3, a, " ")
++              sub(/,/, "", a[2])
++              print "They are following "a[2]" other users."
++            }
++            /\"created_at\":/{
++              print "Their account was created on "$4"."
++            }
++            '
++exit 0
+ 
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..5ac3e0d 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,87 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
++#read -p "Let's find how many exeutable commands are present in the current path."
++#IFS=":"
++#count=0 ; nonex=0
++#for directory in $PATH ;  do
++ # if [ -d "$directory" ] ; then
++  #  for command in "$directory"/* ; do
++
++   #   if [ -x "$command" ] ; then
++    #    count="$(( $count + 1 ))"
++     # else
++      #  nonex="$(( $nonex + 1 ))"
++     # fi
++   # done
++ # fi
++#done
++
++#echo "$count commands, and $nonex entries that weren't executable"
++#exit 0
++          
++
++
++if [ $# -ne 1 ]; then
++  echo "Usage: $0 <username>"
++  exit 1
++fi
++
++# The -s silences curl's normally verbose output.
++curl -s "https://api.github.com/users/$1" | \
++        awk -F'"' '
++            /\"name\":/ { 
++              print $4" is the name of the Github user."
++            }
++            /\"followers\":/{ 
++              split($3, a, " ") 
++              sub(/,/, "", a[2])
++              print "They have "a[2]" followers." 
++            }
++            /\"following\":/{
++              split($3, a, " ")
++              sub(/,/, "", a[2])
++              print "They are following "a[2]" other users."
++            }
++            /\"created_at\":/{
++              print "Their account was created on "$4"."
++            }
++            '
++exit 0
+ 
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..ccec676 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,58 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
++read -p "Let's find how many exeutable commands are present in the current path."
++IFS=":"
++count=0 ; nonex=0#for directory in $PATH ;  do
++  if [ -d "$directory" ] ; then
++    for command in "$directory"/* ; do
++
++      if [ -x "$command" ] ; then
++        count="$(( $count + 1 ))"
++      else
++        nonex="$(( $nonex + 1 ))"
++      fi
++    done
++  fi
++done
++
++echo "$count commands, and $nonex entries that weren't executable"
++exit 0
++         
+ 
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..37f0661 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,58 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
++read -p "Let's find how many exeutable commands are present in the current path."
++IFS=":"
++count=0 ; nonex=0#for directory in $PATH ;  do
++  if [ -d "$directory" ] ; then
++    for command in "$directory"/* ; do
++
++       if [ -x "$command" ] ; then
++        count="$(( $count + 1 ))"
++       else
++        nonex="$(( $nonex + 1 ))"
++       fi
++     done
++   fi
++done
++
++echo "$count commands, and $nonex entries that weren't executable"
++exit 0
++         
+ 
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..5dcf050 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,59 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find -name "*.hs" | xargs -I {} ghc -fno-code {} &>> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
++read -p "Let's find how many exeutable commands are present in the current path."
++IFS=":"
++count=0 ; nonex=0
++for directory in $PATH ;  do
++  if [ -d "$directory" ] ; then
++    for command in "$directory"/* ; do
++
++       if [ -x "$command" ] ; then
++        count="$(( $count + 1 ))"
++       else
++        nonex="$(( $nonex + 1 ))"
++       fi
++     done
++   fi
++done
++
++echo "$count commands, and $nonex entries that weren't executable"
++exit 0
++         
+ 
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..e57b4a7 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,59 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++(grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" .) > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find. -type f -name "*.hs" -exec ghc -fno-code {} \; &> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
++read -p "Let's find how many exeutable commands are present in the current path."
++IFS=":"
++count=0 ; nonex=0
++for directory in $PATH ;  do
++  if [ -d "$directory" ] ; then
++    for command in "$directory"/* ; do
++
++       if [ -x "$command" ] ; then
++        count="$(( $count + 1 ))"
++       else
++        nonex="$(( $nonex + 1 ))"
++       fi
++     done
++   fi
++done
++
++echo "$count commands, and $nonex entries that weren't executable"
++exit 0
++         
+ 
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..e57b4a7 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,59 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++(grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" .) > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find. -type f -name "*.hs" -exec ghc -fno-code {} \; &> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
++read -p "Let's find how many exeutable commands are present in the current path."
++IFS=":"
++count=0 ; nonex=0
++for directory in $PATH ;  do
++  if [ -d "$directory" ] ; then
++    for command in "$directory"/* ; do
++
++       if [ -x "$command" ] ; then
++        count="$(( $count + 1 ))"
++       else
++        nonex="$(( $nonex + 1 ))"
++       fi
++     done
++   fi
++done
++
++echo "$count commands, and $nonex entries that weren't executable"
++exit 0
++         
+ 
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ
+diff --git a/Assign1/ProjectAnalyze.sh b/Assign1/ProjectAnalyze.sh
+index 9326cf7..e57b4a7 100644
+--- a/Assign1/ProjectAnalyze.sh
++++ b/Assign1/ProjectAnalyze.sh
+@@ -10,19 +10,59 @@ then
+ else
+     echo "Local Repo is not up to date with Remote Repo"
+ fi
+-
+ #Part 2
+ #Put all uncommitted changes in a file changes.log
+-git diff $1 >> changes.log 
++git diff >> changes.log 
++read -p "Would you like to view the uncommitted changes? Y/N " ans1
++if [ $ans1 == "Y" ]
++then
++    vim changes.log
++else
++    echo " The file has been created."
++fi
+ 
+ #Part 3
+ # Puts each line from every file of your project with the tag #TODO into a file todo.log
+-grep -r "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
++(grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" .) > todo.log
++read -p "Would you like to view the file - todo.log? Y/N " ans2
++if [ $ans2 == "Y" ]
++then 
++    vim todo.log
++else
++    echo "The file has been created."  # grep function searches for PATTERN in each file or standard input
++fi
+ 
+ #Part 4
+ #Check all haskell files for syntax errors and puts the result into error.log
+-ghc -fno-code *.hs $1 >> error.log  # ghc -fno-code.hs hint given on the course website
++find. -type f -name "*.hs" -exec ghc -fno-code {} \; &> error.log
++read -p "Would you like to view the file - error.log ? Y/N " ans3
++if [ $ans3 == "Y" ]
++then
++    vim error.log
++else
++    echo "The file has been created."
++fi 
++# ghc -fno-code.hs hint given on the course website
+ 
+ #Part 5
+ #Make your own feature
++read -p "Let's find how many exeutable commands are present in the current path."
++IFS=":"
++count=0 ; nonex=0
++for directory in $PATH ;  do
++  if [ -d "$directory" ] ; then
++    for command in "$directory"/* ; do
++
++       if [ -x "$command" ] ; then
++        count="$(( $count + 1 ))"
++       else
++        nonex="$(( $nonex + 1 ))"
++       fi
++     done
++   fi
++done
++
++echo "$count commands, and $nonex entries that weren't executable"
++exit 0
++         
+ 
+diff --git a/Assign1/README.md b/Assign1/README.md
+index 3d78212..bb068d7 100644
+--- a/Assign1/README.md
++++ b/Assign1/README.md
+@@ -1,11 +1,33 @@
+-CS1XA3 ASSIGNMENT 1
+-This file documents the work done on the assignment. 
++CS1XA3 Assignment 1
++PURPOSE
++To create a bash script that does the following-
++•	Informs whether the local repo is up to date with the remote repo.
++•	Puts all uncommitted changes in a file changes.log
++•	Puts each line from every file of your project with the #TODO into a file todo.log
++•	Checks all Haskell errors and puts the result into a file todo.log
++•	One feature of your own making.
+ 
+-1-For the first function we are asked to make a feature that informs whether the local repo is up to date with remote repo. I used the function "git fetch origin" alongwith "git rev-parse master" for local repo and "git rev-parse remote/master" for remote repo. These commands print SHA1 hashes(used stack overflow to find the commands). If both the local and remote repo output hashes are equal then the repos are up to date and my function echoes that.
++PART 1
++For the first part I referenced ( https://github.com/deleeuwj1) but made the changes on the commands that I used. 
++I used the rev-parse master and rev-parse remote/master to print the SHA1 hashes. I found this information on (https://stackoverflow.com/questions/15798862/what-does-git-rev-parse-do) stack overflow.
++My function echoes whether the local repo is up to date with the remote repo.
+ 
+-2- For the second function I simply used git diff command.
++PART 2
++For the 2nd part I used git diff and (>>) to put the uncommitted changes into the file changes.log
++The additional feature that I included asks the user whether they want view the file.
+ 
+-3- For the third function I used the grep feature.
++PART 3
++For the 3rd I used the grep function to search for the tag #TODO.
++The additional feature asks the viewer whether they want to view the file.
+ 
+-4- For the fourth function I used the command which was hinted by the course instructor in our assignment guidelines.
++PART 4
++For the 4th part I used the hint that the instructor provided us in the assignment info.
++
++PART 5
++The feature that I included in the file lets the user know how many executable and non executable commands are in the path.
++for this feature I referenced the textbook Wicked Cool Shell Scripts (https://nostarch.com/wcss2) Chapter 2- Improving User's commands.
++The IFS command was refernced from (http://mindspill.net/computing/linux-notes/using-the-bash-ifs-variable-to-make-for-loops-split-with-non-whitespace-characters/)
++
++ADDITIONAL 
++The concept for viewing the files created was refernced from (https://github.com/elwazana)
+ 
+diff --git a/Labs/Bash02/Bash02.hs.enc b/Labs/Bash02/Bash02.hs.enc
+index 2c06d5d..f53e830 100644
+Binary files a/Labs/Bash02/Bash02.hs.enc and b/Labs/Bash02/Bash02.hs.enc differ

@@ -1,0 +1,2 @@
+•	Puts each line from every file of your project with the #TODO into a file todo.log
+For the 3rd I used the grep function to search for the tag #TODO.
