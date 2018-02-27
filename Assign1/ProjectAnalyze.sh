@@ -23,7 +23,7 @@ fi
 
 #Part 3
 # Puts each line from every file of your project with the tag #TODO into a file todo.log
-<<<<<<< HEAD
+
 (grep -r -h "#TODO" --exclude="todo.log" --exclude="ProjectAnalyze.sh" --exclude="changes.log" .) > todo.log
 read -p "Would you like to view the file - todo.log? Y/N " ans2
 if [ $ans2 == "Y" ]
@@ -43,18 +43,10 @@ then
 else
     echo "The file has been created."
 fi 
-# ghc -fno-code.hs hint given on the course website
-=======
-grep -r --exclude=todo.log "#TODO" $1 >> todo.log  # grep function searches for PATTERN in each file or standard input
-
-#Part 4
-#Check all haskell files for syntax errors and puts the result into error.log
-ghc -fno-code *.hs $1 &>> error.log  # ghc -fno-code.hs hint given on the course website
->>>>>>> 51cf10349bd52748458b9f0819150f739adb96d1
 
 #Part 5
 #Make your own feature
-read -p "Let's find how many exeutable commands are present in the current path."
+read -p "Let's find how many executable commands are present in the current path."
 IFS=":"
 count=0 ; nonex=0
 for directory in $PATH ;  do
