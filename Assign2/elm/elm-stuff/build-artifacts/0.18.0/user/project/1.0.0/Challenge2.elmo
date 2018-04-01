@@ -1,0 +1,140 @@
+var _user$project$Challenge2$view = function (model) {
+	var toCircle = function (_p0) {
+		var _p1 = _p0;
+		return A2(
+			_elm_lang$svg$Svg$circle,
+			{
+				ctor: '::',
+				_0: _elm_lang$svg$Svg_Attributes$cx(_p1._0),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$svg$Svg_Attributes$cy(_p1._1),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$svg$Svg_Attributes$r('10'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$svg$Svg_Attributes$fill('lightBlue'),
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			},
+			{ctor: '[]'});
+	};
+	var sLocs = A2(
+		_elm_lang$core$List$map,
+		function (_p2) {
+			var _p3 = _p2;
+			return {
+				ctor: '_Tuple2',
+				_0: _elm_lang$core$Basics$toString(_p3._0),
+				_1: _elm_lang$core$Basics$toString(_p3._1)
+			};
+		},
+		model.locs);
+	var h = _elm_lang$core$Basics$toString(model.size.height - 5);
+	var w = _elm_lang$core$Basics$toString(model.size.width);
+	var viewBoxA = _elm_lang$svg$Svg_Attributes$viewBox(
+		A2(
+			_elm_lang$core$Basics_ops['++'],
+			'0 0 ',
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				w,
+				A2(_elm_lang$core$Basics_ops['++'], ' ', h))));
+	return A2(
+		_elm_lang$svg$Svg$svg,
+		{
+			ctor: '::',
+			_0: _elm_lang$svg$Svg_Attributes$width(w),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$svg$Svg_Attributes$height(h),
+				_1: {
+					ctor: '::',
+					_0: viewBoxA,
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$svg$Svg_Attributes$xmlSpace('http://www.w3.org/2000/svg'),
+						_1: {ctor: '[]'}
+					}
+				}
+			}
+		},
+		A2(_elm_lang$core$List$map, toCircle, sLocs));
+};
+var _user$project$Challenge2$interval = 500;
+var _user$project$Challenge2$Model = F2(
+	function (a, b) {
+		return {locs: a, size: b};
+	});
+var _user$project$Challenge2$NewDot = function (a) {
+	return {ctor: 'NewDot', _0: a};
+};
+var _user$project$Challenge2$update = F2(
+	function (msg, model) {
+		var _p4 = msg;
+		switch (_p4.ctor) {
+			case 'Resize':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{size: _p4._0}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'Tick':
+				var generator = A2(
+					_elm_lang$core$Random$pair,
+					A2(_elm_lang$core$Random$int, 10, model.size.width - 10),
+					A2(_elm_lang$core$Random$int, 10, model.size.height - 10));
+				return {
+					ctor: '_Tuple2',
+					_0: model,
+					_1: A2(_elm_lang$core$Random$generate, _user$project$Challenge2$NewDot, generator)
+				};
+			default:
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							locs: {ctor: '::', _0: _p4._0, _1: model.locs}
+						}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+		}
+	});
+var _user$project$Challenge2$Tick = function (a) {
+	return {ctor: 'Tick', _0: a};
+};
+var _user$project$Challenge2$Resize = function (a) {
+	return {ctor: 'Resize', _0: a};
+};
+var _user$project$Challenge2$init = {
+	ctor: '_Tuple2',
+	_0: {
+		locs: {ctor: '[]'},
+		size: A2(_elm_lang$window$Window$Size, 0, 0)
+	},
+	_1: A2(_elm_lang$core$Task$perform, _user$project$Challenge2$Resize, _elm_lang$window$Window$size)
+};
+var _user$project$Challenge2$main = _elm_lang$html$Html$program(
+	{
+		init: _user$project$Challenge2$init,
+		update: _user$project$Challenge2$update,
+		view: _user$project$Challenge2$view,
+		subscriptions: function (_p5) {
+			return _elm_lang$core$Platform_Sub$batch(
+				{
+					ctor: '::',
+					_0: _elm_lang$window$Window$resizes(_user$project$Challenge2$Resize),
+					_1: {
+						ctor: '::',
+						_0: A2(_elm_lang$core$Time$every, _user$project$Challenge2$interval, _user$project$Challenge2$Tick),
+						_1: {ctor: '[]'}
+					}
+				});
+		}
+	})();

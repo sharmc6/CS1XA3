@@ -1,0 +1,869 @@
+var _user$project$ChallengeFive$onEnter = F2(
+	function (fail, success) {
+		var tagger = function (code) {
+			return _elm_lang$core$Native_Utils.eq(code, 13) ? success : fail;
+		};
+		return A2(
+			_elm_lang$html$Html_Events$on,
+			'keyup',
+			A2(_elm_lang$core$Json_Decode$map, tagger, _elm_lang$html$Html_Events$keyCode));
+	});
+var _user$project$ChallengeFive$toPair = function (l) {
+	var _p0 = l;
+	if (((_p0.ctor === '::') && (_p0._1.ctor === '::')) && (_p0._1._1.ctor === '[]')) {
+		return _elm_lang$core$Maybe$Just(
+			{
+				ctor: '_Tuple2',
+				_0: _elm_lang$core$String$trim(_p0._0),
+				_1: _elm_lang$core$String$trim(_p0._1._0)
+			});
+	} else {
+		return _elm_lang$core$Maybe$Nothing;
+	}
+};
+var _user$project$ChallengeFive$toStyle = function (s) {
+	var attrs = A2(
+		_elm_lang$core$String$split,
+		';',
+		_elm_lang$core$String$trim(s));
+	var attrs_ = A2(
+		_elm_lang$core$List$map,
+		function (s_) {
+			return A2(
+				_elm_lang$core$String$split,
+				':',
+				_elm_lang$core$String$trim(s_));
+		},
+		attrs);
+	return _elm_lang$html$Html_Attributes$style(
+		A2(_elm_lang$core$List$filterMap, _user$project$ChallengeFive$toPair, attrs_));
+};
+var _user$project$ChallengeFive$highScoresLine = function (_p1) {
+	var _p2 = _p1;
+	var _p4 = _p2._1._1;
+	var _p3 = _p2._1._0;
+	var score_ = _elm_lang$core$Basics$toString(_p4);
+	var dotsNeeded = (30 - _elm_lang$core$String$length(_p3)) - _elm_lang$core$String$length(
+		_elm_lang$core$Basics$toString(_p4));
+	var dots = A2(_elm_lang$core$String$repeat, dotsNeeded, '.');
+	var pos = _elm_lang$core$Basics$toString(_p2._0 + 1);
+	var txt = _evancz$elm_graphics$Text$fromString(
+		A2(
+			_elm_lang$core$Basics_ops['++'],
+			' ',
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				pos,
+				A2(
+					_elm_lang$core$Basics_ops['++'],
+					'.',
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						_p3,
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							dots,
+							(_elm_lang$core$Native_Utils.cmp(_p4, 0) > 0) ? score_ : '.'))))));
+	return _evancz$elm_graphics$Element$leftAligned(
+		A2(
+			_evancz$elm_graphics$Text$height,
+			40,
+			A2(
+				_evancz$elm_graphics$Text$color,
+				_elm_lang$core$Color$white,
+				_evancz$elm_graphics$Text$monospace(txt))));
+};
+var _user$project$ChallengeFive$highScoresList = function (highScores) {
+	var header = _evancz$elm_graphics$Element$centered(
+		A2(
+			_evancz$elm_graphics$Text$height,
+			40,
+			A2(
+				_evancz$elm_graphics$Text$color,
+				_elm_lang$core$Color$white,
+				_evancz$elm_graphics$Text$monospace(
+					_evancz$elm_graphics$Text$fromString('High Scores')))));
+	var hsList = A2(
+		_elm_lang$core$List$indexedMap,
+		F2(
+			function (v0, v1) {
+				return {ctor: '_Tuple2', _0: v0, _1: v1};
+			}),
+		highScores);
+	return _evancz$elm_graphics$Collage$toForm(
+		A2(
+			_evancz$elm_graphics$Element$flow,
+			_evancz$elm_graphics$Element$down,
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				{
+					ctor: '::',
+					_0: header,
+					_1: {ctor: '[]'}
+				},
+				A2(_elm_lang$core$List$map, _user$project$ChallengeFive$highScoresLine, hsList))));
+};
+var _user$project$ChallengeFive$moveHead = F2(
+	function (dir, _p5) {
+		var _p6 = _p5;
+		var _p9 = _p6._1;
+		var _p8 = _p6._0;
+		var _p7 = dir;
+		switch (_p7.ctor) {
+			case 'Up':
+				return {ctor: '_Tuple2', _0: _p8, _1: _p9 - 1};
+			case 'Down':
+				return {ctor: '_Tuple2', _0: _p8, _1: _p9 + 1};
+			case 'Left':
+				return {ctor: '_Tuple2', _0: _p8 - 1, _1: _p9};
+			default:
+				return {ctor: '_Tuple2', _0: _p8 + 1, _1: _p9};
+		}
+	});
+var _user$project$ChallengeFive$newPos = F2(
+	function (dir, snake) {
+		var body = A2(
+			_elm_lang$core$List$take,
+			_elm_lang$core$List$length(snake) - 1,
+			snake);
+		var head_ = _elm_lang$core$List$head(body);
+		var head = function () {
+			var _p10 = head_;
+			if (_p10.ctor === 'Just') {
+				return {ctor: '_Tuple2', _0: _p10._0._0, _1: _p10._0._1};
+			} else {
+				return {ctor: '_Tuple2', _0: 0, _1: 0};
+			}
+		}();
+		var newHead = A2(_user$project$ChallengeFive$moveHead, dir, head);
+		return {ctor: '_Tuple2', _0: newHead, _1: body};
+	});
+var _user$project$ChallengeFive$scoreFromSpeed = function (s) {
+	return _elm_lang$core$Basics$truncate(((s - 3) / 2) * 100);
+};
+var _user$project$ChallengeFive$newHighScore = F2(
+	function (speed, highScores) {
+		var scores = _elm_lang$core$Tuple$second(
+			_elm_lang$core$List$unzip(highScores));
+		var min = function () {
+			var _p11 = _elm_lang$core$List$minimum(scores);
+			if (_p11.ctor === 'Just') {
+				return _p11._0;
+			} else {
+				return 0;
+			}
+		}();
+		return _elm_lang$core$Native_Utils.cmp(
+			_user$project$ChallengeFive$scoreFromSpeed(speed),
+			min) > 0;
+	});
+var _user$project$ChallengeFive$updateHighScores = F3(
+	function (name, speed, highScores) {
+		var highScore = _user$project$ChallengeFive$scoreFromSpeed(speed);
+		var highScores_ = {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: name, _1: highScore},
+			_1: highScores
+		};
+		var newHighScores = _elm_lang$core$List$reverse(
+			A2(
+				_elm_lang$core$List$sortBy,
+				function (_p12) {
+					var _p13 = _p12;
+					return _p13._1;
+				},
+				highScores_));
+		return A2(_elm_lang$core$List$take, 5, newHighScores);
+	});
+var _user$project$ChallengeFive$initHS = A2(
+	_elm_lang$core$List$repeat,
+	5,
+	{ctor: '_Tuple2', _0: '', _1: 0});
+var _user$project$ChallengeFive$fruitInterval = 2 * _elm_lang$core$Time$second;
+var _user$project$ChallengeFive$pitBlock = 22;
+var _user$project$ChallengeFive$pitHeight = 30;
+var _user$project$ChallengeFive$pitWidth = 40;
+var _user$project$ChallengeFive$innerWidth = (_user$project$ChallengeFive$pitWidth * _user$project$ChallengeFive$pitBlock) - (2 * _user$project$ChallengeFive$pitBlock);
+var _user$project$ChallengeFive$fruitGen = A2(
+	_elm_lang$core$Random$pair,
+	A2(_elm_lang$core$Random$int, 0, _user$project$ChallengeFive$pitWidth - 1),
+	A2(_elm_lang$core$Random$int, 0, _user$project$ChallengeFive$pitHeight - 1));
+var _user$project$ChallengeFive$outside = function (_p14) {
+	var _p15 = _p14;
+	var _p17 = _p15._1;
+	var _p16 = _p15._0;
+	return !(((_elm_lang$core$Native_Utils.cmp(_p16, 0) > -1) && (_elm_lang$core$Native_Utils.cmp(_p16, _user$project$ChallengeFive$pitWidth) < 0)) && ((_elm_lang$core$Native_Utils.cmp(_p17, 0) > -1) && (_elm_lang$core$Native_Utils.cmp(_p17, _user$project$ChallengeFive$pitHeight) < 0)));
+};
+var _user$project$ChallengeFive$moveXY = function (_p18) {
+	var _p19 = _p18;
+	var halfHeight = (_user$project$ChallengeFive$pitHeight / 2) | 0;
+	var halfWidth = (_user$project$ChallengeFive$pitWidth / 2) | 0;
+	var halfPit = (_user$project$ChallengeFive$pitBlock / 2) | 0;
+	return _evancz$elm_graphics$Collage$move(
+		{
+			ctor: '_Tuple2',
+			_0: _elm_lang$core$Basics$toFloat(((_p19._0 - halfWidth) * _user$project$ChallengeFive$pitBlock) + halfPit),
+			_1: _elm_lang$core$Basics$toFloat(((halfHeight - _p19._1) * _user$project$ChallengeFive$pitBlock) - halfPit)
+		});
+};
+var _user$project$ChallengeFive$coloredText = F2(
+	function (s, c) {
+		return A2(
+			_user$project$ChallengeFive$moveXY,
+			{ctor: '_Tuple2', _0: (_user$project$ChallengeFive$pitWidth / 2) | 0, _1: 4 * ((_user$project$ChallengeFive$pitHeight / 5) | 0)},
+			_evancz$elm_graphics$Collage$text(
+				A2(
+					_evancz$elm_graphics$Text$height,
+					40,
+					A2(
+						_evancz$elm_graphics$Text$color,
+						c,
+						_evancz$elm_graphics$Text$monospace(
+							_evancz$elm_graphics$Text$fromString(s))))));
+	});
+var _user$project$ChallengeFive$saveHighScore = _elm_lang$core$Native_Platform.outgoingPort(
+	'saveHighScore',
+	function (v) {
+		return _elm_lang$core$Native_List.toArray(v).map(
+			function (v) {
+				return [v._0, v._1];
+			});
+	});
+var _user$project$ChallengeFive$Model = function (a) {
+	return function (b) {
+		return function (c) {
+			return function (d) {
+				return function (e) {
+					return function (f) {
+						return function (g) {
+							return function (h) {
+								return function (i) {
+									return function (j) {
+										return {body: a, dir: b, status: c, fruit: d, ripeness: e, delta: f, speed: g, highScores: h, name: i, size: j};
+									};
+								};
+							};
+						};
+					};
+				};
+			};
+		};
+	};
+};
+var _user$project$ChallengeFive$Down = {ctor: 'Down'};
+var _user$project$ChallengeFive$Up = {ctor: 'Up'};
+var _user$project$ChallengeFive$Right = {ctor: 'Right'};
+var _user$project$ChallengeFive$Left = {ctor: 'Left'};
+var _user$project$ChallengeFive$updateDirection = F2(
+	function (arrow, snake) {
+		var newDir = function () {
+			var _p20 = {
+				ctor: '_Tuple2',
+				_0: arrow,
+				_1: _elm_lang$core$Native_Utils.eq(snake.dir, _user$project$ChallengeFive$Up) || _elm_lang$core$Native_Utils.eq(snake.dir, _user$project$ChallengeFive$Down)
+			};
+			_v9_4:
+			do {
+				if (_p20.ctor === '_Tuple2') {
+					if (_p20._1 === true) {
+						switch (_p20._0.ctor) {
+							case 'Left':
+								return _user$project$ChallengeFive$Left;
+							case 'Right':
+								return _user$project$ChallengeFive$Right;
+							default:
+								break _v9_4;
+						}
+					} else {
+						switch (_p20._0.ctor) {
+							case 'Up':
+								return _user$project$ChallengeFive$Up;
+							case 'Down':
+								return _user$project$ChallengeFive$Down;
+							default:
+								break _v9_4;
+						}
+					}
+				} else {
+					break _v9_4;
+				}
+			} while(false);
+			return snake.dir;
+		}();
+		return _elm_lang$core$Native_Utils.eq(snake.dir, newDir) ? snake : _elm_lang$core$Native_Utils.update(
+			snake,
+			{dir: newDir, delta: 0});
+	});
+var _user$project$ChallengeFive$HighScore = {ctor: 'HighScore'};
+var _user$project$ChallengeFive$End = {ctor: 'End'};
+var _user$project$ChallengeFive$endIfCollision = function (snake) {
+	var highScore = A2(_user$project$ChallengeFive$newHighScore, snake.speed, snake.highScores);
+	var _p21 = snake;
+	var delta = _p21.delta;
+	var body = _p21.body;
+	var dir = _p21.dir;
+	var status = _p21.status;
+	var _p22 = A2(_user$project$ChallengeFive$newPos, dir, body);
+	var newHead = _p22._0;
+	var newBody = _p22._1;
+	var _p23 = {
+		ctor: '_Tuple3',
+		_0: status,
+		_1: delta,
+		_2: _user$project$ChallengeFive$outside(newHead) || A2(_elm_lang$core$List$member, newHead, body)
+	};
+	if ((((_p23.ctor === '_Tuple3') && (_p23._0.ctor === 'Active')) && (_p23._1 === 0)) && (_p23._2 === true)) {
+		return _elm_lang$core$Native_Utils.update(
+			snake,
+			{
+				status: highScore ? _user$project$ChallengeFive$HighScore : _user$project$ChallengeFive$End
+			});
+	} else {
+		return snake;
+	}
+};
+var _user$project$ChallengeFive$Paused = {ctor: 'Paused'};
+var _user$project$ChallengeFive$Active = {ctor: 'Active'};
+var _user$project$ChallengeFive$toggleGame = function (status) {
+	var _p24 = status;
+	switch (_p24.ctor) {
+		case 'End':
+			return _user$project$ChallengeFive$Active;
+		case 'Paused':
+			return _user$project$ChallengeFive$Active;
+		case 'Start':
+			return _user$project$ChallengeFive$Active;
+		case 'Active':
+			return _user$project$ChallengeFive$Paused;
+		default:
+			return _user$project$ChallengeFive$HighScore;
+	}
+};
+var _user$project$ChallengeFive$updateDelta = F2(
+	function (t, snake) {
+		var _p25 = _elm_lang$core$Native_Utils.eq(snake.status, _user$project$ChallengeFive$Active) ? {ctor: '_Tuple2', _0: snake.delta + t, _1: snake.ripeness + t} : {ctor: '_Tuple2', _0: 0, _1: 0};
+		var newDelta = _p25._0;
+		var newRipeness = _p25._1;
+		return (_elm_lang$core$Native_Utils.cmp(newDelta, 180 / snake.speed) > 0) ? _elm_lang$core$Native_Utils.update(
+			snake,
+			{delta: 0, ripeness: newRipeness}) : _elm_lang$core$Native_Utils.update(
+			snake,
+			{delta: newDelta, ripeness: newRipeness});
+	});
+var _user$project$ChallengeFive$moveIfActive = function (snake) {
+	var body = snake.body;
+	var _p26 = A2(_user$project$ChallengeFive$newPos, snake.dir, body);
+	var newHead = _p26._0;
+	var newBody = _p26._1;
+	var delta = snake.delta;
+	return (_elm_lang$core$Native_Utils.eq(snake.status, _user$project$ChallengeFive$Active) && _elm_lang$core$Native_Utils.eq(delta, 0)) ? (_elm_lang$core$Native_Utils.eq(
+		snake.fruit,
+		_elm_lang$core$Maybe$Just(newHead)) ? _elm_lang$core$Native_Utils.update(
+		snake,
+		{
+			body: {ctor: '::', _0: newHead, _1: snake.body},
+			fruit: _elm_lang$core$Maybe$Nothing,
+			speed: snake.speed + 0.5
+		}) : _elm_lang$core$Native_Utils.update(
+		snake,
+		{
+			body: {ctor: '::', _0: newHead, _1: newBody}
+		})) : snake;
+};
+var _user$project$ChallengeFive$Start = {ctor: 'Start'};
+var _user$project$ChallengeFive$startSnake = {
+	body: {
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: (_user$project$ChallengeFive$pitWidth / 2) | 0, _1: (_user$project$ChallengeFive$pitHeight / 2) | 0},
+		_1: {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: ((_user$project$ChallengeFive$pitWidth / 2) | 0) - 1, _1: (_user$project$ChallengeFive$pitHeight / 2) | 0},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: ((_user$project$ChallengeFive$pitWidth / 2) | 0) - 2, _1: (_user$project$ChallengeFive$pitHeight / 2) | 0},
+				_1: {ctor: '[]'}
+			}
+		}
+	},
+	dir: _user$project$ChallengeFive$Down,
+	status: _user$project$ChallengeFive$Start,
+	fruit: _elm_lang$core$Maybe$Nothing,
+	ripeness: 0,
+	delta: 0,
+	speed: 3,
+	highScores: _user$project$ChallengeFive$initHS,
+	name: '',
+	size: A2(_elm_lang$window$Window$Size, 0, 0)
+};
+var _user$project$ChallengeFive$DoNothing = {ctor: 'DoNothing'};
+var _user$project$ChallengeFive$Resize = function (a) {
+	return {ctor: 'Resize', _0: a};
+};
+var _user$project$ChallengeFive$init = function (highScores) {
+	return {
+		ctor: '_Tuple2',
+		_0: _elm_lang$core$Native_Utils.update(
+			_user$project$ChallengeFive$startSnake,
+			{highScores: highScores}),
+		_1: A2(_elm_lang$core$Task$perform, _user$project$ChallengeFive$Resize, _elm_lang$window$Window$size)
+	};
+};
+var _user$project$ChallengeFive$UpdateName = function (a) {
+	return {ctor: 'UpdateName', _0: a};
+};
+var _user$project$ChallengeFive$HighScoreEntered = function (a) {
+	return {ctor: 'HighScoreEntered', _0: a};
+};
+var _user$project$ChallengeFive$highScoreInput = function (snake) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _user$project$ChallengeFive$toStyle('display:flex; position:absolute; top:0; left:0;justify-content:center;align-items:center;width:100%;height:100%;'),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$input,
+				{
+					ctor: '::',
+					_0: _user$project$ChallengeFive$toStyle('font-size:40px;'),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$type_('input'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$value(snake.name),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$placeholder('Enter your name'),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html_Events$on,
+										'input',
+										A2(_elm_lang$core$Json_Decode$map, _user$project$ChallengeFive$UpdateName, _elm_lang$html$Html_Events$targetValue)),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_user$project$ChallengeFive$onEnter,
+											_user$project$ChallengeFive$DoNothing,
+											_user$project$ChallengeFive$HighScoreEntered(
+												A3(_user$project$ChallengeFive$updateHighScores, snake.name, snake.speed, snake.highScores))),
+										_1: {ctor: '[]'}
+									}
+								}
+							}
+						}
+					}
+				},
+				{ctor: '[]'}),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$ChallengeFive$PopFruit = function (a) {
+	return {ctor: 'PopFruit', _0: a};
+};
+var _user$project$ChallengeFive$popFruitIfRipe = function (snake) {
+	return (_elm_lang$core$Native_Utils.cmp(snake.ripeness, _user$project$ChallengeFive$fruitInterval) > 0) ? {
+		ctor: '_Tuple2',
+		_0: _elm_lang$core$Native_Utils.update(
+			snake,
+			{ripeness: 0}),
+		_1: A2(_elm_lang$core$Random$generate, _user$project$ChallengeFive$PopFruit, _user$project$ChallengeFive$fruitGen)
+	} : {ctor: '_Tuple2', _0: snake, _1: _elm_lang$core$Platform_Cmd$none};
+};
+var _user$project$ChallengeFive$update = F2(
+	function (msg, snake) {
+		var _p27 = msg;
+		switch (_p27.ctor) {
+			case 'Keys':
+				var _p28 = _p27._0;
+				switch (_p28.ctor) {
+					case 'Space':
+						return _elm_lang$core$Native_Utils.eq(snake.status, _user$project$ChallengeFive$End) ? A2(
+							_elm_lang$core$Platform_Cmd_ops['!'],
+							_elm_lang$core$Native_Utils.update(
+								_user$project$ChallengeFive$startSnake,
+								{
+									status: _user$project$ChallengeFive$toggleGame(snake.status),
+									highScores: snake.highScores,
+									size: snake.size
+								}),
+							{ctor: '[]'}) : A2(
+							_elm_lang$core$Platform_Cmd_ops['!'],
+							_elm_lang$core$Native_Utils.update(
+								snake,
+								{
+									status: _user$project$ChallengeFive$toggleGame(snake.status)
+								}),
+							{ctor: '[]'});
+					case 'Key':
+						return A2(
+							_elm_lang$core$Platform_Cmd_ops['!'],
+							function (snake) {
+								return _elm_lang$core$Native_Utils.eq(snake.delta, 0) ? _user$project$ChallengeFive$moveIfActive(
+									_user$project$ChallengeFive$endIfCollision(snake)) : snake;
+							}(
+								A2(_user$project$ChallengeFive$updateDirection, _p28._0, snake)),
+							{ctor: '[]'});
+					default:
+						return A2(
+							_elm_lang$core$Platform_Cmd_ops['!'],
+							snake,
+							{ctor: '[]'});
+				}
+			case 'Tick':
+				return _user$project$ChallengeFive$popFruitIfRipe(
+					_user$project$ChallengeFive$moveIfActive(
+						_user$project$ChallengeFive$endIfCollision(
+							A2(_user$project$ChallengeFive$updateDelta, _p27._0, snake))));
+			case 'PopFruit':
+				var _p31 = _p27._0._1;
+				var _p30 = _p27._0._0;
+				var _p29 = {
+					ctor: '_Tuple3',
+					_0: snake.status,
+					_1: snake.fruit,
+					_2: A2(
+						_elm_lang$core$List$member,
+						{ctor: '_Tuple2', _0: _p30, _1: _p31},
+						snake.body)
+				};
+				if ((((_p29.ctor === '_Tuple3') && (_p29._0.ctor === 'Active')) && (_p29._1.ctor === 'Nothing')) && (_p29._2 === false)) {
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						_elm_lang$core$Native_Utils.update(
+							snake,
+							{
+								fruit: _elm_lang$core$Maybe$Just(
+									{ctor: '_Tuple2', _0: _p30, _1: _p31})
+							}),
+						{ctor: '[]'});
+				} else {
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						snake,
+						{ctor: '[]'});
+				}
+			case 'HighScoreEntered':
+				return function (snake) {
+					return {
+						ctor: '_Tuple2',
+						_0: snake,
+						_1: _user$project$ChallengeFive$saveHighScore(snake.highScores)
+					};
+				}(
+					_elm_lang$core$Native_Utils.update(
+						snake,
+						{highScores: _p27._0, name: '', status: _user$project$ChallengeFive$End}));
+			case 'UpdateName':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						snake,
+						{name: _p27._0}),
+					{ctor: '[]'});
+			case 'Resize':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						snake,
+						{size: _p27._0}),
+					{ctor: '[]'});
+			default:
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					snake,
+					{ctor: '[]'});
+		}
+	});
+var _user$project$ChallengeFive$Keys = function (a) {
+	return {ctor: 'Keys', _0: a};
+};
+var _user$project$ChallengeFive$Tick = function (a) {
+	return {ctor: 'Tick', _0: a};
+};
+var _user$project$ChallengeFive$OtherKeys = {ctor: 'OtherKeys'};
+var _user$project$ChallengeFive$Key = function (a) {
+	return {ctor: 'Key', _0: a};
+};
+var _user$project$ChallengeFive$Space = {ctor: 'Space'};
+var _user$project$ChallengeFive$toKeyPress = function (keyCode) {
+	var _p32 = keyCode;
+	switch (_p32) {
+		case 32:
+			return _user$project$ChallengeFive$Space;
+		case 38:
+			return _user$project$ChallengeFive$Key(_user$project$ChallengeFive$Up);
+		case 40:
+			return _user$project$ChallengeFive$Key(_user$project$ChallengeFive$Down);
+		case 37:
+			return _user$project$ChallengeFive$Key(_user$project$ChallengeFive$Left);
+		case 39:
+			return _user$project$ChallengeFive$Key(_user$project$ChallengeFive$Right);
+		default:
+			return _user$project$ChallengeFive$OtherKeys;
+	}
+};
+var _user$project$ChallengeFive$Body = {ctor: 'Body'};
+var _user$project$ChallengeFive$Head = {ctor: 'Head'};
+var _user$project$ChallengeFive$renderSnakePart = F2(
+	function (part, _p33) {
+		var _p34 = _p33;
+		var pitBlock_ = _elm_lang$core$Basics$toFloat(_user$project$ChallengeFive$pitBlock);
+		var partColor = _elm_lang$core$Native_Utils.eq(part, _user$project$ChallengeFive$Head) ? _elm_lang$core$Color$darkYellow : _elm_lang$core$Color$yellow;
+		return A2(
+			_user$project$ChallengeFive$moveXY,
+			{ctor: '_Tuple2', _0: _p34._0, _1: _p34._1},
+			_evancz$elm_graphics$Collage$group(
+				{
+					ctor: '::',
+					_0: A2(
+						_evancz$elm_graphics$Collage$filled,
+						partColor,
+						A2(_evancz$elm_graphics$Collage$rect, pitBlock_, pitBlock_)),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_evancz$elm_graphics$Collage$outlined,
+							_evancz$elm_graphics$Collage$solid(_elm_lang$core$Color$darkBrown),
+							A2(_evancz$elm_graphics$Collage$rect, pitBlock_, pitBlock_)),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$core$Native_Utils.eq(part, _user$project$ChallengeFive$Head) ? A2(
+								_evancz$elm_graphics$Collage$outlined,
+								_evancz$elm_graphics$Collage$solid(_elm_lang$core$Color$red),
+								A2(_evancz$elm_graphics$Collage$ngon, 5, pitBlock_ / 2.2)) : A2(
+								_evancz$elm_graphics$Collage$outlined,
+								_evancz$elm_graphics$Collage$solid(_elm_lang$core$Color$darkBrown),
+								A2(_evancz$elm_graphics$Collage$rect, pitBlock_ / 1.2, pitBlock_ / 1.2)),
+							_1: {ctor: '[]'}
+						}
+					}
+				}));
+	});
+var _user$project$ChallengeFive$renderSnake = function (snake) {
+	var _p35 = snake.body;
+	if (_p35.ctor === '::') {
+		return {
+			ctor: '::',
+			_0: A2(_user$project$ChallengeFive$renderSnakePart, _user$project$ChallengeFive$Head, _p35._0),
+			_1: A2(
+				_elm_lang$core$List$map,
+				_user$project$ChallengeFive$renderSnakePart(_user$project$ChallengeFive$Body),
+				_p35._1)
+		};
+	} else {
+		return {ctor: '[]'};
+	}
+};
+var _user$project$ChallengeFive$view = function (snake) {
+	var highScoreForm = function () {
+		var _p36 = snake.status;
+		if (_p36.ctor === 'HighScore') {
+			return {
+				ctor: '::',
+				_0: _user$project$ChallengeFive$highScoreInput(snake),
+				_1: {ctor: '[]'}
+			};
+		} else {
+			return {ctor: '[]'};
+		}
+	}();
+	var score = _user$project$ChallengeFive$scoreFromSpeed(snake.speed);
+	var msg = function () {
+		var _p37 = snake.status;
+		switch (_p37.ctor) {
+			case 'Start':
+				return 'Press SPACE to Start!';
+			case 'Active':
+				return '';
+			case 'Paused':
+				return 'Press SPACE to Unpause';
+			case 'End':
+				return 'Press SPACE to Restart';
+			default:
+				return A2(
+					_elm_lang$core$Basics_ops['++'],
+					'New High Score: ',
+					_elm_lang$core$Basics$toString(score));
+		}
+	}();
+	var scoreText = _elm_lang$core$Native_Utils.eq(snake.status, _user$project$ChallengeFive$Active) ? _elm_lang$core$Basics$toString(score) : '';
+	var scoreForm = A2(
+		_user$project$ChallengeFive$moveXY,
+		{ctor: '_Tuple2', _0: (_user$project$ChallengeFive$pitWidth / 2) | 0, _1: 0},
+		_evancz$elm_graphics$Collage$text(
+			A2(
+				_evancz$elm_graphics$Text$height,
+				40,
+				A2(
+					_evancz$elm_graphics$Text$color,
+					_elm_lang$core$Color$darkGrey,
+					_evancz$elm_graphics$Text$monospace(
+						_evancz$elm_graphics$Text$fromString(scoreText))))));
+	var fruitImg = _evancz$elm_graphics$Collage$toForm(
+		A3(_evancz$elm_graphics$Element$image, _user$project$ChallengeFive$pitBlock, _user$project$ChallengeFive$pitBlock, 'https://raw.githubusercontent.com/pdamoc/elmChallenges/master/apple.png'));
+	var fruit = function () {
+		var _p38 = snake.fruit;
+		if (_p38.ctor === 'Just') {
+			return {
+				ctor: '::',
+				_0: A2(
+					_user$project$ChallengeFive$moveXY,
+					{ctor: '_Tuple2', _0: _p38._0._0, _1: _p38._0._1},
+					fruitImg),
+				_1: {ctor: '[]'}
+			};
+		} else {
+			return {ctor: '[]'};
+		}
+	}();
+	var pitBlock_ = _elm_lang$core$Basics$toFloat(_user$project$ChallengeFive$pitBlock);
+	var pitHeight_ = _elm_lang$core$Basics$toFloat(_user$project$ChallengeFive$pitHeight * _user$project$ChallengeFive$pitBlock);
+	var pitWidth_ = _elm_lang$core$Basics$toFloat(_user$project$ChallengeFive$pitWidth * _user$project$ChallengeFive$pitBlock);
+	var info = function () {
+		var _p39 = snake.status;
+		switch (_p39.ctor) {
+			case 'Active':
+				return {ctor: '[]'};
+			case 'End':
+				return {
+					ctor: '::',
+					_0: A2(
+						_evancz$elm_graphics$Collage$filled,
+						A4(_elm_lang$core$Color$rgba, 100, 100, 100, 0.8),
+						A2(_evancz$elm_graphics$Collage$rect, pitWidth_ - (2 * pitBlock_), pitHeight_ - (2 * pitBlock_))),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_evancz$elm_graphics$Collage$move,
+							{ctor: '_Tuple2', _0: 0.0, _1: 2 * pitBlock_},
+							_user$project$ChallengeFive$highScoresList(snake.highScores)),
+						_1: {
+							ctor: '::',
+							_0: A2(_user$project$ChallengeFive$coloredText, msg, _elm_lang$core$Color$white),
+							_1: {ctor: '[]'}
+						}
+					}
+				};
+			case 'HighScore':
+				return {
+					ctor: '::',
+					_0: A2(
+						_evancz$elm_graphics$Collage$filled,
+						A4(_elm_lang$core$Color$rgba, 100, 100, 100, 0.8),
+						A2(_evancz$elm_graphics$Collage$rect, pitWidth_ - (2 * pitBlock_), pitHeight_ - (2 * pitBlock_))),
+					_1: {
+						ctor: '::',
+						_0: A2(_user$project$ChallengeFive$coloredText, msg, _elm_lang$core$Color$white),
+						_1: {ctor: '[]'}
+					}
+				};
+			default:
+				return {
+					ctor: '::',
+					_0: A2(_user$project$ChallengeFive$coloredText, msg, _elm_lang$core$Color$white),
+					_1: {ctor: '[]'}
+				};
+		}
+	}();
+	var _p40 = snake.size;
+	var width = _p40.width;
+	var height = _p40.height;
+	var _p41 = {
+		ctor: '_Tuple2',
+		_0: _elm_lang$core$Basics$toFloat(width),
+		_1: _elm_lang$core$Basics$toFloat(height)
+	};
+	var w = _p41._0;
+	var h = _p41._1;
+	var elements = A3(
+		_evancz$elm_graphics$Collage$collage,
+		width,
+		height,
+		A2(
+			_elm_lang$core$Basics_ops['++'],
+			{
+				ctor: '::',
+				_0: A2(
+					_evancz$elm_graphics$Collage$filled,
+					A3(_elm_lang$core$Color$rgb, 29, 41, 81),
+					A2(_evancz$elm_graphics$Collage$rect, w, h)),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_evancz$elm_graphics$Collage$filled,
+						_elm_lang$core$Native_Utils.eq(snake.status, _user$project$ChallengeFive$End) ? _elm_lang$core$Color$red : _elm_lang$core$Color$darkBrown,
+						A2(_evancz$elm_graphics$Collage$rect, pitWidth_ + (2 * pitBlock_), pitHeight_ + (2 * pitBlock_))),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_evancz$elm_graphics$Collage$filled,
+							_elm_lang$core$Color$black,
+							A2(_evancz$elm_graphics$Collage$rect, pitWidth_, pitHeight_)),
+						_1: {
+							ctor: '::',
+							_0: scoreForm,
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			},
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				_user$project$ChallengeFive$renderSnake(snake),
+				A2(_elm_lang$core$Basics_ops['++'], fruit, info))));
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		A2(
+			_elm_lang$core$Basics_ops['++'],
+			{
+				ctor: '::',
+				_0: _evancz$elm_graphics$Element$toHtml(elements),
+				_1: {ctor: '[]'}
+			},
+			highScoreForm));
+};
+var _user$project$ChallengeFive$main = _elm_lang$html$Html$programWithFlags(
+	{
+		init: _user$project$ChallengeFive$init,
+		update: _user$project$ChallengeFive$update,
+		view: _user$project$ChallengeFive$view,
+		subscriptions: function (_p42) {
+			return _elm_lang$core$Platform_Sub$batch(
+				{
+					ctor: '::',
+					_0: _elm_lang$window$Window$resizes(_user$project$ChallengeFive$Resize),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$animation_frame$AnimationFrame$diffs(_user$project$ChallengeFive$Tick),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$keyboard$Keyboard$downs(
+								function (_p43) {
+									return _user$project$ChallengeFive$Keys(
+										_user$project$ChallengeFive$toKeyPress(_p43));
+								}),
+							_1: {ctor: '[]'}
+						}
+					}
+				});
+		}
+	})(
+	_elm_lang$core$Json_Decode$list(
+		A2(
+			_elm_lang$core$Json_Decode$andThen,
+			function (x0) {
+				return A2(
+					_elm_lang$core$Json_Decode$andThen,
+					function (x1) {
+						return _elm_lang$core$Json_Decode$succeed(
+							{ctor: '_Tuple2', _0: x0, _1: x1});
+					},
+					A2(_elm_lang$core$Json_Decode$index, 1, _elm_lang$core$Json_Decode$int));
+			},
+			A2(_elm_lang$core$Json_Decode$index, 0, _elm_lang$core$Json_Decode$string))));

@@ -1,0 +1,533 @@
+var _user$project$Main$searchInputStyle = {
+	ctor: '::',
+	_0: {ctor: '_Tuple2', _0: 'display', _1: 'flex'},
+	_1: {
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: 'margin', _1: '20px auto'},
+		_1: {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 'width', _1: 'calc(100% - 20px)'},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'height', _1: '50px'},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'padding', _1: '6px'},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'border', _1: '2px solid blue'},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'font-size', _1: '20px'},
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			}
+		}
+	}
+};
+var _user$project$Main$containerStyle = {
+	ctor: '::',
+	_0: {ctor: '_Tuple2', _0: 'margin', _1: '24px auto'},
+	_1: {
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: 'width', _1: '480px'},
+		_1: {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 'display', _1: 'block'},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'block-direction', _1: 'column'},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'font-family', _1: 'Courier, sans-serif'},
+					_1: {ctor: '[]'}
+				}
+			}
+		}
+	}
+};
+var _user$project$Main$viewLabel = F2(
+	function (label, value) {
+		return A2(
+			_elm_lang$html$Html$div,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$style(
+					{
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'margin', _1: '8px 2px'},
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$span,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$style(
+							{
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'font-style', _1: 'italic'},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'margin-right', _1: '10px'},
+									_1: {ctor: '[]'}
+								}
+							}),
+						_1: {ctor: '[]'}
+					},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text(
+							A2(_elm_lang$core$Basics_ops['++'], label, ':')),
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$span,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text(value),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}
+			});
+	});
+var _user$project$Main$viewUserProp = F2(
+	function (label, value) {
+		var _p0 = value;
+		if (_p0.ctor === 'Nothing') {
+			return A2(_user$project$Main$viewLabel, label, '-');
+		} else {
+			return A2(_user$project$Main$viewLabel, label, _p0._0);
+		}
+	});
+var _user$project$Main$viewLanguages = function (languages) {
+	var items = A3(
+		_elm_lang$core$Set$foldl,
+		F2(
+			function (curr, acc) {
+				return {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$li,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text(curr),
+							_1: {ctor: '[]'}
+						}),
+					_1: acc
+				};
+			}),
+		{ctor: '[]'},
+		languages);
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$style(
+				{
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'margin', _1: '10px 2'},
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$span,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$style(
+						{
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'font-style', _1: 'italic'},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'margin-right', _1: '7px'},
+								_1: {ctor: '[]'}
+							}
+						}),
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('Languages:'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$ul,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$style(
+							{
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'display', _1: 'inline-block'},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'list-style', _1: 'none'},
+									_1: {
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: 'margin', _1: '0 0 0 2px'},
+										_1: {
+											ctor: '::',
+											_0: {ctor: '_Tuple2', _0: 'padding', _1: '0'},
+											_1: {
+												ctor: '::',
+												_0: {ctor: '_Tuple2', _0: 'vertical-align', _1: 'top'},
+												_1: {ctor: '[]'}
+											}
+										}
+									}
+								}
+							}),
+						_1: {ctor: '[]'}
+					},
+					items),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _user$project$Main$viewUser = function (user) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$style(
+				{
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'display', _1: 'block'},
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$img,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$src(user.avatarUrl),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$style(
+							{
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'width', _1: '500px'},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'height', _1: '350px'},
+									_1: {ctor: '[]'}
+								}
+							}),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$alt('user avatar'),
+							_1: {ctor: '[]'}
+						}
+					}
+				},
+				{ctor: '[]'}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$div,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$style(
+							{
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'flex', _1: '5'},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'padding-left', _1: '50px'},
+									_1: {ctor: '[]'}
+								}
+							}),
+						_1: {ctor: '[]'}
+					},
+					{
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$a,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$href(user.url),
+								_1: {ctor: '[]'}
+							},
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text(user.login),
+								_1: {ctor: '[]'}
+							}),
+						_1: {
+							ctor: '::',
+							_0: A2(_user$project$Main$viewUserProp, 'User', user.name),
+							_1: {
+								ctor: '::',
+								_0: A2(_user$project$Main$viewUserProp, 'Bio', user.bio),
+								_1: {
+									ctor: '::',
+									_0: _user$project$Main$viewLanguages(user.languages),
+									_1: {ctor: '[]'}
+								}
+							}
+						}
+					}),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _user$project$Main$viewUserContainer = function (data) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: function () {
+				var _p1 = data;
+				switch (_p1.ctor) {
+					case 'NotAsked':
+						return _elm_lang$html$Html$text('');
+					case 'Loading':
+						return _elm_lang$html$Html$text('Loading...');
+					case 'Failure':
+						return _elm_lang$html$Html$text('There was an error');
+					default:
+						return _user$project$Main$viewUser(_p1._0);
+				}
+			}(),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$Main$subscriptions = function (model) {
+	return _elm_lang$core$Platform_Sub$none;
+};
+var _user$project$Main$applyLanguages = F2(
+	function (user, repos) {
+		var reducer = F2(
+			function (repo, ls) {
+				var _p2 = repo.language;
+				if (_p2.ctor === 'Nothing') {
+					return ls;
+				} else {
+					return {ctor: '::', _0: _p2._0, _1: ls};
+				}
+			});
+		var languages = A3(
+			_elm_lang$core$List$foldl,
+			reducer,
+			{ctor: '[]'},
+			repos);
+		return _elm_lang$core$Native_Utils.update(
+			user,
+			{
+				languages: _elm_lang$core$Set$fromList(languages)
+			});
+	});
+var _user$project$Main$Model = F3(
+	function (a, b, c) {
+		return {username: a, debounceCount: b, user: c};
+	});
+var _user$project$Main$User = F6(
+	function (a, b, c, d, e, f) {
+		return {login: a, avatarUrl: b, url: c, name: d, bio: e, languages: f};
+	});
+var _user$project$Main$userDecoder = A7(
+	_elm_lang$core$Json_Decode$map6,
+	_user$project$Main$User,
+	A2(_elm_lang$core$Json_Decode$field, 'login', _elm_lang$core$Json_Decode$string),
+	A2(_elm_lang$core$Json_Decode$field, 'avatar_url', _elm_lang$core$Json_Decode$string),
+	A2(_elm_lang$core$Json_Decode$field, 'html_url', _elm_lang$core$Json_Decode$string),
+	A2(
+		_elm_lang$core$Json_Decode$field,
+		'name',
+		_elm_lang$core$Json_Decode$maybe(_elm_lang$core$Json_Decode$string)),
+	A2(
+		_elm_lang$core$Json_Decode$field,
+		'bio',
+		_elm_lang$core$Json_Decode$maybe(_elm_lang$core$Json_Decode$string)),
+	_elm_lang$core$Json_Decode$succeed(_elm_lang$core$Set$empty));
+var _user$project$Main$Repo = function (a) {
+	return {language: a};
+};
+var _user$project$Main$repoDecoder = A2(
+	_elm_lang$core$Json_Decode$map,
+	_user$project$Main$Repo,
+	A2(
+		_elm_lang$core$Json_Decode$field,
+		'language',
+		_elm_lang$core$Json_Decode$maybe(_elm_lang$core$Json_Decode$string)));
+var _user$project$Main$repoListDecoder = _elm_lang$core$Json_Decode$list(_user$project$Main$repoDecoder);
+var _user$project$Main$Success = function (a) {
+	return {ctor: 'Success', _0: a};
+};
+var _user$project$Main$Failure = function (a) {
+	return {ctor: 'Failure', _0: a};
+};
+var _user$project$Main$Loading = {ctor: 'Loading'};
+var _user$project$Main$NotAsked = {ctor: 'NotAsked'};
+var _user$project$Main$init = {
+	ctor: '_Tuple2',
+	_0: A3(_user$project$Main$Model, '', 0, _user$project$Main$NotAsked),
+	_1: _elm_lang$core$Platform_Cmd$none
+};
+var _user$project$Main$NewData = function (a) {
+	return {ctor: 'NewData', _0: a};
+};
+var _user$project$Main$fetchData = function (username) {
+	var reposUrl = A2(
+		_elm_lang$core$Basics_ops['++'],
+		'https://api.github.com/users/',
+		A2(_elm_lang$core$Basics_ops['++'], username, '/repos'));
+	var userUrl = A2(_elm_lang$core$Basics_ops['++'], 'https://api.github.com/users/', username);
+	return A2(
+		_elm_lang$core$Task$attempt,
+		_user$project$Main$NewData,
+		A3(
+			_elm_lang$core$Task$map2,
+			_user$project$Main$applyLanguages,
+			_elm_lang$http$Http$toTask(
+				A2(_elm_lang$http$Http$get, userUrl, _user$project$Main$userDecoder)),
+			_elm_lang$http$Http$toTask(
+				A2(_elm_lang$http$Http$get, reposUrl, _user$project$Main$repoListDecoder))));
+};
+var _user$project$Main$Input = function (a) {
+	return {ctor: 'Input', _0: a};
+};
+var _user$project$Main$viewSearch = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$style(
+				{
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'flex', _1: '5'},
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$input,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$type_('text'),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$placeholder('Enter the Github username'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$style(_user$project$Main$searchInputStyle),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Events$onInput(_user$project$Main$Input),
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				},
+				{ctor: '[]'}),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$Main$view = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$style(_user$project$Main$containerStyle),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: _user$project$Main$viewSearch(model),
+			_1: {
+				ctor: '::',
+				_0: _user$project$Main$viewUserContainer(model.user),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _user$project$Main$Timeout = function (a) {
+	return {ctor: 'Timeout', _0: a};
+};
+var _user$project$Main$debounceCmd = function (count) {
+	return A2(
+		_elm_lang$core$Task$perform,
+		function (_p3) {
+			return _user$project$Main$Timeout(count);
+		},
+		_elm_lang$core$Process$sleep(1000 * _elm_lang$core$Time$millisecond));
+};
+var _user$project$Main$update = F2(
+	function (msg, model) {
+		var _p4 = msg;
+		switch (_p4.ctor) {
+			case 'Input':
+				var count = model.debounceCount + 1;
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{username: _p4._0, debounceCount: count}),
+					_1: _user$project$Main$debounceCmd(count)
+				};
+			case 'Timeout':
+				return _elm_lang$core$Native_Utils.eq(_p4._0, model.debounceCount) ? ((_elm_lang$core$Native_Utils.cmp(
+					_elm_lang$core$String$length(model.username),
+					1) < 0) ? A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{debounceCount: 0, user: _user$project$Main$NotAsked}),
+					{ctor: '[]'}) : {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{debounceCount: 0, user: _user$project$Main$Loading}),
+					_1: _user$project$Main$fetchData(model.username)
+				}) : A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					{ctor: '[]'});
+			default:
+				var _p5 = _p4._0;
+				if (_p5.ctor === 'Err') {
+					var _p6 = _p5._0;
+					var log = A2(_elm_lang$core$Debug$log, 'result', _p6);
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						_elm_lang$core$Native_Utils.update(
+							model,
+							{
+								user: _user$project$Main$Failure(_p6)
+							}),
+						{ctor: '[]'});
+				} else {
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						_elm_lang$core$Native_Utils.update(
+							model,
+							{
+								user: _user$project$Main$Success(_p5._0)
+							}),
+						{ctor: '[]'});
+				}
+		}
+	});
+var _user$project$Main$main = _elm_lang$html$Html$program(
+	{init: _user$project$Main$init, update: _user$project$Main$update, view: _user$project$Main$view, subscriptions: _user$project$Main$subscriptions})();
