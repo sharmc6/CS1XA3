@@ -16,7 +16,7 @@ Built a Math Library in Haskell which helps with various math functions.
 
 ## Documentaion
 
-View the haskell library [here]
+View the haskell library [Haskell Math Library](http://ugweb.cas.mcmaster.ca/~sharmc6/docs/)
 
 ## Versioning
 
