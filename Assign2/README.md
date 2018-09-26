@@ -2,7 +2,7 @@
 
 CS1XA3 Assignment 2
 
-### View The [Resume](http://ugweb.cas.mcmaster.ca/~sharmc6/)
+### View The [Resume](http://ugweb.cas.mcmaster.ca/~sharmc6/#web-development)
 * You can head straight to the web app from the link given in resume itself.
 
 ### View The [Web App](http://ugweb.cas.mcmaster.ca/~sharmc6/elm/main.html).
