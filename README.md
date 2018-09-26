@@ -20,7 +20,7 @@ Session: Winter 2018
      - It was created to demonstrate my knowledge of the ELM architure that was taught in class. 
      - View The [Web App](http://ugweb.cas.mcmaster.ca/~sharmc6/elm/main.html).
   - It also contains the HTML code for my resume.
-     - View The [Resume](http://ugweb.cas.mcmaster.ca/~sharmc6/)
+     - View The [Resume](http://ugweb.cas.mcmaster.ca/~sharmc6/#web-development)
      
 
 ## Assign3
